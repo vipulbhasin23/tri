@@ -20,6 +20,9 @@ var addCmd = &cobra.Command{
 
 func addRun(cmd *cobra.Command, args []string) {
 	fmt.Println("add called")
+	for _, x := range args {
+		fmt.Println(x)
+	}
 }
 
 func init() {
