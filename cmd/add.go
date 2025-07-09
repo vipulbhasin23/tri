@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/vipulbhasin23/tri/todo"
 )
 
 // addCmd represents the add command
