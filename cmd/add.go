@@ -20,10 +20,12 @@ var addCmd = &cobra.Command{
 }
 
 func addRun(cmd *cobra.Command, args []string) {
-	fmt.Println("add called")
+	// fmt.Println("add called")
+	items := []todo.Item{}
 	for _, x := range args {
-		fmt.Println(x)
+		items = append(items, todo.Item{Text: x})
 	}
+	fmt.Println(items)
 }
 
 func init() {
