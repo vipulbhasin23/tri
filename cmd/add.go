@@ -1,11 +1,11 @@
 /*
 Copyright © 2025 Vipul B
-
 */
 package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
 	"github.com/vipulbhasin23/tri/todo"
@@ -15,20 +15,25 @@ import (
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new todo",
-	Long: `Add will create a new todo item to the list`,
-	Run: addRun,
+	Long:  `Add will create a new todo item to the list`,
+	Run:   addRun,
 }
 
 func addRun(cmd *cobra.Command, args []string) {
 	// fmt.Println("add called")
-	items := []todo.Item{}
+	// items := []todo.Item{}
+	items, err := todo.ReadItems("/Users/vipul/.tridos.json")
+	if err != nil {
+		log.Printf("%v", err)
+	}
+
 	for _, x := range args {
 		items = append(items, todo.Item{Text: x})
 	}
 
-	err := todo.SaveItems("/Users/vipul/.tridos.json", items)
+	err = todo.SaveItems("/Users/vipul/.tridos.json", items)
 	if err != nil {
-		fmt.Errorf("%v", err)
+		fmt.Printf("%v", err)
 	}
 }
 
