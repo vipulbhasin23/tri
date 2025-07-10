@@ -6,6 +6,9 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
+	"strconv"
+	"text/tabwriter"
 
 	"github.com/spf13/cobra"
 	"github.com/vipulbhasin23/tri/todo"
@@ -16,14 +19,21 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all todos",
 	Long:  `List will display a list of all the todos saved to the list.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		items, err := todo.ReadItems(dataFile)
+	Run:   listRun,
+}
 
-		if err != nil {
-			log.Printf("%v", err)
-		}
-		fmt.Println(items)
-	},
+func listRun(cmd *cobra.Command, args []string) {
+	items, err := todo.ReadItems(dataFile)
+
+	if err != nil {
+		log.Printf("%v", err)
+	}
+	// fmt.Println(items)
+	w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)
+	for _, i := range items {
+		fmt.Fprintln(w, strconv.Itoa(i.Priority)+"\t"+i.Text+"\t")
+	}
+	w.Flush()
 }
 
 func init() {
