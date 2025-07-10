@@ -1,6 +1,5 @@
 /*
 Copyright © 2025 Vipul B
-
 */
 package cmd
 
@@ -16,9 +15,9 @@ import (
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all todos",
-	Long: `List will display a list of all the todos saved to the list.`,
+	Long:  `List will display a list of all the todos saved to the list.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := todo.ReadItems("/Users/vipul/.tridos.json")
+		items, err := todo.ReadItems(dataFile)
 
 		if err != nil {
 			log.Printf("%v", err)
